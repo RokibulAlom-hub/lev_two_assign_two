@@ -40,5 +40,22 @@ VALUES
 (2, 2, 2, 'Bankwood Area', '2024-05-12 16:20:00', 'Juvenile seen'),
 (3, 3, 3, 'Bamboo Grove East', '2024-05-15 09:10:00', 'Feeding observed'),
 (4, 1, 2, 'Snowfall Pass', '2024-05-18 18:30:00', NULL);
-SELECT * FROM sightings ;     
-ALTER TABLE rangers ADD PRIMARY KEY (rangerid); 
+SELECT * FROM rangers ;     
+ALTER TABLE rangers ADD PRIMARY KEY (rangerid);
+
+--task 1 input first data into rangers table 
+INSERT INTO rangers (rname , region) VALUES ('Derek Fox', 'Coastal Plains') ;
+
+--task 2 Count unique species ever sighted
+SELECT  COUNT (DISTINCT speciesid) 
+FROM sightings ;
+
+--task 3 Find all sightings where the location includes "Pass".
+SELECT * FROM sightings
+WHERE locations LIKE '%Pass%';
+-- task 4 List each ranger's name and their total number of sightings.
+SELECT rangers.rname , COUNT(sightings.rangerid) AS total_sightings
+FROM rangers 
+LEFT JOIN sightings ON rangers.rangerid = sightings.rangerid 
+GROUP BY rangers.rname ;
+
