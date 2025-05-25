@@ -59,3 +59,15 @@ FROM rangers
 LEFT JOIN sightings ON rangers.rangerid = sightings.rangerid 
 GROUP BY rangers.rname ;
 
+--task 5 List species that have never been sighted.
+SELECT species.common_name 
+FROM species 
+LEFT JOIN sightings ON species.speciesid = sightings.speciesid 
+WHERE sightings.speciesid IS NULL ; 
+
+--task 6 show the most recent two sightings
+
+SELECT sighting_time
+FROM sightings 
+ORDER BY sighting_time DESC
+LIMIT 2;
