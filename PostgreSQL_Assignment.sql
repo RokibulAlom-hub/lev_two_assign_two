@@ -66,8 +66,23 @@ LEFT JOIN sightings ON species.speciesid = sightings.speciesid
 WHERE sightings.speciesid IS NULL ; 
 
 --task 6 show the most recent two sightings
-
 SELECT sighting_time
 FROM sightings 
 ORDER BY sighting_time DESC
 LIMIT 2;
+
+--task 7 Update all species discovered before year 1800 to have status 'Historic'.
+
+UPDATE species
+SET conservation_status = 'Historic'
+WHERE discovery_date <= '1800-01-01' ;
+SELECT conservation_status FROM species ;
+-- task 8 Label each sighting's time of day as 'Morning', 'Afternoon', or 'Evening'.
+
+SELECT sighting_id,sighting_time,
+  CASE 
+    WHEN EXTRACT (HOUR FROM sighting_time) >= 6 AND  EXTRACT (HOUR FROM sighting_time) < 12 THEN 'Morning'
+    WHEN EXTRACT (HOUR FROM sighting_time) >= 12 AND  EXTRACT (HOUR FROM sighting_time) < 18 THEN 'Afternoon'
+    ELSE 'Evening'
+  END AS time_of_day
+FROM sightings ;  
